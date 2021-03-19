@@ -10,7 +10,7 @@ public class PriceResponseFactory {
 
 	public static PriceResponse createResponse(final Price aPrice) {
 		if (aPrice == null) {
-			return new UnsucessfullPriceResponse();
+			return new UnsucessfulPriceResponse();
 		}
 		return new SucessfullPriceResponse(aPrice);
 	}

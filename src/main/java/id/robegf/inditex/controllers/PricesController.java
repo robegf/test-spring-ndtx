@@ -18,6 +18,7 @@ import id.robegf.inditex.entities.responses.PriceResponse;
 import id.robegf.inditex.entities.responses.PriceResponseFactory;
 import id.robegf.inditex.exceptions.PriceNotFoundException;
 import id.robegf.inditex.services.PriceService;
+import id.robegf.inditex.utils.Constants;
 
 /**
  * PricesController
@@ -29,8 +30,6 @@ import id.robegf.inditex.services.PriceService;
 @RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, path = "/api")
 public class PricesController {
 
-	private static final String DATE_TIME_FORMAT = "yyyy-MM-dd-HH.mm.ss";
-
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
@@ -38,7 +37,7 @@ public class PricesController {
 
 	@GetMapping("/prices")
 	public ResponseEntity<PriceResponse> get(
-			@RequestParam(value = "applicationDate") @DateTimeFormat(pattern = DATE_TIME_FORMAT) final Date applicationDate,
+			@RequestParam(value = "applicationDate") @DateTimeFormat(pattern = Constants.DEFAULT_TIME_FORMAT) final Date applicationDate,
 			@RequestParam(value = "productId") final Integer productId,
 			@RequestParam(value = "brandId") final Integer brandId) {
 		log.debug("get request received");
