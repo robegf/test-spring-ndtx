@@ -1,7 +1,8 @@
 package id.robegf.inditex.services;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -22,7 +23,7 @@ public class IntegrationTestPriceService {
 
 	@Test
 	public void testPriceNotFound() {
-		assertThrows(PriceNotFoundException.class, () -> {
+		assertThatExceptionOfType(PriceNotFoundException.class).isThrownBy(() -> {
 			priceService.getPrice(TestUtils.APPLICATION_DATE, 0, 0);
 		});
 	}
@@ -50,6 +51,6 @@ public class IntegrationTestPriceService {
 		final Date d = TestUtils.convertStringToDate(dateParameter);
 		final BigDecimal bd = new BigDecimal(priceParameter);
 		final Price p = priceService.getPrice(d, TestUtils.PRODUCT_ID, TestUtils.BRAND_ID);
-		assertEquals(bd, p.getProductPrice());
+		assertThat(bd).isEqualTo(p.getProductPrice());
 	}
 }

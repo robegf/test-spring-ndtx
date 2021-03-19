@@ -1,12 +1,11 @@
 package id.robegf.inditex.services;
 
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.when;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -18,37 +17,37 @@ import id.robegf.inditex.repositories.PriceRepository;
 
 public class UnitTestPriceService {
 
-	@Mock
-	private PriceRepository priceRepository;
-
 	@InjectMocks
 	private PriceService priceService;
 
-	@Before
-	public void init() {
-		MockitoAnnotations.initMocks(this);
-	}
+	@Mock
+	private PriceRepository priceRepository;
 
 	@Test
 	public void testExceptionThrown() {
+		MockitoAnnotations.initMocks(this);
+
 		when(priceRepository.findByApplicationDateAndProductIdAndBrandId(TestUtils.APPLICATION_DATE, 0, 0))
 		.thenThrow(PriceNotFoundException.class);
 
-		assertThrows(PriceNotFoundException.class, () -> {
+		assertThatExceptionOfType(PriceNotFoundException.class).isThrownBy(() -> {
 			priceService.getPrice(TestUtils.APPLICATION_DATE, 0, 0);
 		});
 	}
 
 	@Test
 	public void testCorrectResponse() throws Exception {
+		MockitoAnnotations.initMocks(this);
+
 		final Price defaultPrice = TestUtils.createDefaultPrice();
-		when(priceRepository.findByApplicationDateAndProductIdAndBrandId(TestUtils.APPLICATION_DATE, TestUtils.PRODUCT_ID, TestUtils.BRAND_ID))
+		when(priceRepository.findByApplicationDateAndProductIdAndBrandId(TestUtils.APPLICATION_DATE,
+				TestUtils.PRODUCT_ID, TestUtils.BRAND_ID))
 		.thenReturn(defaultPrice);
 
 		final Price price = priceService.getPrice(TestUtils.APPLICATION_DATE, TestUtils.PRODUCT_ID, TestUtils.BRAND_ID);
 
-		assertEquals(TestUtils.BRAND_ID, price.getBrandId().intValue());
-		assertEquals(TestUtils.PRODUCT_ID, price.getProductId().intValue());
-		assertEquals(TestUtils.PRICE, price.getProductPrice());
+		assertThat(TestUtils.BRAND_ID).isEqualTo(price.getBrandId().intValue());
+		assertThat(TestUtils.PRODUCT_ID).isEqualTo(price.getProductId().intValue());
+		assertThat(TestUtils.PRICE).isEqualTo(price.getProductPrice());
 	}
 }

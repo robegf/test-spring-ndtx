@@ -1,23 +1,23 @@
 package id.robegf.inditex.repositories;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertThrows;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import id.robegf.inditex.TestUtils;
 import id.robegf.inditex.entities.Price;
 import id.robegf.inditex.exceptions.PriceNotFoundException;
 
 @ActiveProfiles("test")
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = NONE)
 public class IntegrationTestPriceRepository {
@@ -43,7 +43,7 @@ public class IntegrationTestPriceRepository {
 
 	@Test
 	public void testPriceNotFound() {
-		assertThrows(PriceNotFoundException.class, () -> {
+		assertThatExceptionOfType(PriceNotFoundException.class).isThrownBy(() -> {
 			priceRepository.findByApplicationDateAndProductIdAndBrandId(TestUtils.APPLICATION_DATE, 0, 0);
 		});
 	}
