@@ -19,13 +19,13 @@ import id.robegf.inditex.TestUtils;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class IntegrationTestPricesController {
+class PricesControllerIT {
 
 	@Autowired
 	private MockMvc mockMvc;
 
 	@Test
-	public void testHttpMethods() throws Exception {
+	void testHttpMethods() throws Exception {
 		final String fullURL = generateCorrectURL(true);
 
 		mockMvc.perform(get(TestUtils.SERVICE_CONTEXT)).andExpect(status().isUnsupportedMediaType());
@@ -50,7 +50,7 @@ public class IntegrationTestPricesController {
 	}
 
 	@Test
-	public void testHeaders() throws Exception {
+	void testHeaders() throws Exception {
 		final String correctURL = generateCorrectURL(true);
 		final String wrongURL = generateCorrectURL(false);
 
@@ -102,7 +102,7 @@ public class IntegrationTestPricesController {
 	}
 
 	@Test
-	public void testResponse() throws Exception {
+	void testResponse() throws Exception {
 		final String fullURL = generateCorrectURL(true);
 
 		mockMvc.perform(
@@ -121,7 +121,7 @@ public class IntegrationTestPricesController {
 	}
 
 	@Test
-	public void testBusinessCases() throws Exception {
+	void testBusinessCases() throws Exception {
 		final String date1 = TestUtils.DEFAULT_APPLICATION_DATE;
 		final String date2 = "2020-06-14-16.00.00";
 		final String date3 = "2020-06-14-21.00.00";

@@ -18,7 +18,6 @@ import id.robegf.inditex.entities.responses.PriceResponse;
 import id.robegf.inditex.entities.responses.PriceResponseFactory;
 import id.robegf.inditex.exceptions.PriceNotFoundException;
 import id.robegf.inditex.services.PriceService;
-import id.robegf.inditex.utils.Constants;
 
 /**
  * PricesController
@@ -37,7 +36,7 @@ public class PricesController {
 
 	@GetMapping("/prices")
 	public ResponseEntity<PriceResponse> get(
-			@RequestParam(value = "applicationDate") @DateTimeFormat(pattern = Constants.DEFAULT_TIME_FORMAT) final Date applicationDate,
+			@RequestParam(value = "applicationDate") @DateTimeFormat(pattern = "yyyy-MM-dd-HH.mm.ss") final Date applicationDate,
 			@RequestParam(value = "productId") final Integer productId,
 			@RequestParam(value = "brandId") final Integer brandId) {
 		log.debug("get request received");

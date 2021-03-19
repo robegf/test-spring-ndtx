@@ -9,13 +9,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import id.robegf.inditex.repositories.PriceRepositoryImpl;
 
 @SpringBootTest
-public class SmokeTestPriceService {
+class PriceServiceSmokeTest {
 
 	@Autowired
 	private PriceRepositoryImpl priceRepository;
 
 	@Test
-	public void contextLoads() throws Exception {
+	void contextLoads() throws Exception {
 		assertThat(priceRepository).isNotNull();
 	}
 }

@@ -21,7 +21,7 @@ import id.robegf.inditex.services.PriceService;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(PricesController.class)
-public class UnitTestPricesController {
+class PricesControllerUnitTest {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -30,7 +30,7 @@ public class UnitTestPricesController {
 	private PriceService service;
 
 	@Test
-	public void testExceptionThrown() throws Exception {
+	void testExceptionThrown() throws Exception {
 		when(service.getPrice(TestUtils.APPLICATION_DATE, 0, 0)).thenThrow(PriceNotFoundException.class);
 		mockMvc.perform(
 				get(TestUtils.SERVICE_CONTEXT + TestUtils.RIGHT_QUERY_STRING).contentType(MediaType.APPLICATION_JSON))
@@ -39,7 +39,7 @@ public class UnitTestPricesController {
 	}
 
 	@Test
-	public void testCorrectResponse() throws Exception {
+	void testCorrectResponse() throws Exception {
 		when(service.getPrice(TestUtils.APPLICATION_DATE, TestUtils.PRODUCT_ID, TestUtils.BRAND_ID))
 		.thenReturn(TestUtils.createDefaultPrice());
 		mockMvc.perform(

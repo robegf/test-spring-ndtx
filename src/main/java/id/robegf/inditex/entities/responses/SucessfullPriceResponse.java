@@ -4,12 +4,11 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 
 import id.robegf.inditex.entities.Price;
-import id.robegf.inditex.utils.Constants;
 
 public class SucessfullPriceResponse implements PriceResponse {
 
 	private static final long serialVersionUID = -5535273198854481111L;
-	private final SimpleDateFormat sdf = new SimpleDateFormat(Constants.DEFAULT_TIME_FORMAT);
+	private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss");
 	private Price price = null;
 
 	public SucessfullPriceResponse(final Price aPrice) {

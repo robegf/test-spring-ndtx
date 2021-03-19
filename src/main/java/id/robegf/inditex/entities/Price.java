@@ -1,5 +1,6 @@
 package id.robegf.inditex.entities;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -11,11 +12,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 @Entity
 @Table(name = "PRICES")
 @NamedQuery(name = "Price.findByApplicationDateAndProductIdAndBrandId", query = "FROM Price p where p.productId = ?1 and p.brandId = ?2 and (p.startDate <= ?3 and p.endDate >=?3) ORDER BY p.priority DESC")
-public class Price {
+public class Price implements Serializable {
+
+	private static final long serialVersionUID = 2561402950711957339L;
 
 	@Id
 	@Column(name = "PRICE_LIST", nullable = false)

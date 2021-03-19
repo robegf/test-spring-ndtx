@@ -16,20 +16,20 @@ import id.robegf.inditex.entities.Price;
 import id.robegf.inditex.exceptions.PriceNotFoundException;
 
 @SpringBootTest
-public class IntegrationTestPriceService {
+class PriceServiceIT {
 
 	@Autowired
 	protected PriceService priceService;
 
 	@Test
-	public void testPriceNotFound() {
+	void testPriceNotFound() {
 		assertThatExceptionOfType(PriceNotFoundException.class).isThrownBy(() -> {
 			priceService.getPrice(TestUtils.APPLICATION_DATE, 0, 0);
 		});
 	}
 
 	@Test
-	public void testPriceFound() {
+	void testPriceFound() {
 		final String date1 = TestUtils.DEFAULT_APPLICATION_DATE;
 		final String date2 = "2020-06-14-16.00.00";
 		final String date3 = "2020-06-14-21.00.00";

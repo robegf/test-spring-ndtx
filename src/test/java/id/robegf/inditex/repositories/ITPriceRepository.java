@@ -20,13 +20,13 @@ import id.robegf.inditex.exceptions.PriceNotFoundException;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = NONE)
-public class IntegrationTestPriceRepository {
+class ITPriceRepository {
 
 	@Autowired
 	private PriceRepositoryImpl priceRepository;
 
 	@Test
-	public void testFindPrice() {
+	void testFindPrice() {
 		final Price expectedPrice = TestUtils.createDefaultPrice();
 		final Price price = priceRepository.findByApplicationDateAndProductIdAndBrandId(TestUtils.APPLICATION_DATE,
 				TestUtils.PRODUCT_ID, TestUtils.BRAND_ID);
@@ -42,7 +42,7 @@ public class IntegrationTestPriceRepository {
 	}
 
 	@Test
-	public void testPriceNotFound() {
+	void testPriceNotFound() {
 		assertThatExceptionOfType(PriceNotFoundException.class).isThrownBy(() -> {
 			priceRepository.findByApplicationDateAndProductIdAndBrandId(TestUtils.APPLICATION_DATE, 0, 0);
 		});
